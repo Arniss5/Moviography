@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
+
+* {
+    font-family: 'Inter', sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1c1c1c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* HERO */
+
+.hero {
+    color: #fff;
+    background-image: url("./image\ 36.png");
+    background-color: rgba(0, 0, 0, 0.5);
+    background-position: 0 25%;
+    background-size: cover;
+    width: 100%;
+    height: 25vh;
+    max-width: 700px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4em 2em;
+}
+
+h1 {
+    font-size: 2.6rem;
+}
+
+.watchlist-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+} 
+
+/* SEARCH BAR */
+
+.search {
+    align-self: center;
+    background-color: #fff;
+    width: 80%;
+    height: 40px;
+    max-width: 550px;
+    border: 1px solid #D1D5DB;
+    border-radius: .4em;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    margin: -20px 0 30px 0;
+}
+
+.search-bar {
+    color: #6B7280;
+    font-weight: 500;
+    border: none;
+    border-right: 1px solid #D1D5DB;
+    width: 70%;
+}
+
+.search-btn {
+    color: #374151;
+    font-weight: 500;
+    border: 0;
+    background-color: #f9fafb;
+    width: 30%;
+    cursor: pointer;
+}
+
+.fa-magnifying-glass {
+    color: #9CA3AF;
+    margin: 10px;
+}
+
+
+/* FILMS */
+main {
+    background-color: #fff;
+    max-width: 700px;
+    min-height: 75vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
+    width: 90%;
+    display: flex;
+    gap: 2em;
+}
+
+.card-img {
+    object-fit: scale-down;
+}
