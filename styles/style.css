@@ -9,8 +9,25 @@
 
 body {
     background-color: #1c1c1c;
-    display: flex;
     flex-direction: column;
+}
+
+main {
+    background-color: #fff;
+    max-width: 700px;
+    min-height: 75vh; 
+    flex-direction: column;
+}
+
+body,
+main,
+.hero,
+.search,
+.card,
+.text-top,
+.card-info,
+.watchlist-toggle {
+    display: flex;
     align-items: center;
 }
 
@@ -25,9 +42,7 @@ body {
     width: 100%;
     height: 25vh;
     max-width: 700px;
-    display: flex;
     justify-content: space-between;
-    align-items: center;
     padding: 4em 2em;
 }
 
@@ -41,6 +56,13 @@ h1 {
     font-weight: 700;
 } 
 
+.watchlist-link:hover,
+.watchlist-link:focus,
+.watchlist-link:active {
+    color: #FEC654;
+    outline: none;
+}
+
 /* SEARCH BAR */
 
 .search {
@@ -51,7 +73,6 @@ h1 {
     max-width: 550px;
     border: 1px solid #D1D5DB;
     border-radius: .4em;
-    display: flex;
     justify-content: space-between;
     overflow: hidden;
     margin: -20px 0 30px 0;
@@ -63,6 +84,7 @@ h1 {
     border: none;
     border-right: 1px solid #D1D5DB;
     width: 70%;
+    height: 100%;
 }
 
 .search-btn {
@@ -71,7 +93,18 @@ h1 {
     border: 0;
     background-color: #f9fafb;
     width: 30%;
+    height: 100%;
     cursor: pointer;
+}
+
+.search-btn:hover,
+.search-btn:focus    {
+    background-color: #D1D5DB;
+}
+
+.search-btn:focus,
+.search-bar:focus {
+    outline: none;
 }
 
 .fa-magnifying-glass {
@@ -81,21 +114,72 @@ h1 {
 
 
 /* FILMS */
-main {
-    background-color: #fff;
-    max-width: 700px;
-    min-height: 75vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 .card {
     width: 90%;
     display: flex;
-    gap: 2em;
+    gap: 1.5em;
+    border-bottom: 1.5px solid #E5E7EB;
+    padding: 1.5em 0;
 }
 
 .card-img {
-    object-fit: scale-down;
+    width: 100px;
 }
+
+.fa-star {
+    color: #FEC654;
+    font-size: .6rem;
+    margin-right: .3em;
+}
+
+.rating {
+    font-size: .8rem;
+}
+
+.title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-right: 1em;
+}
+
+.card-info {
+    font-size: .8rem;
+    color: #111827;
+    gap: 2em;
+}
+
+.watchlist-toggle {
+    color: #111827;
+    border: none;
+    background-color: transparent;
+    gap: .5em;
+    cursor: pointer;
+}
+
+.watchlist-toggle:hover > .fa-circle-plus,
+.watchlist-toggle:active > .fa-circle-plus {
+    color: rgba(0, 88, 0, 0.76);
+}
+
+.watchlist-toggle:hover,
+.watchlist-toggle:active {
+    font-weight: 500;
+}
+
+.fa-circle-plus {
+    font-size: 1.1rem;
+    
+}
+
+.card-info {
+    margin: 1em 0;
+}
+
+.plot {
+    color: #6B7280;
+    font-size: .9rem;
+}
+
+
+
