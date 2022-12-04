@@ -209,6 +209,17 @@ h1 {
 .plot {
     color: #6B7280;
     font-size: .9rem;
+    line-height: 1.2rem;
+}
+
+.read-more {
+    color: #272727;
+    font-size: .8rem;
+    text-decoration: none;
+}
+
+.read-more:hover {
+    text-decoration: underline;
 }
 
 

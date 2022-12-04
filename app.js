@@ -3,6 +3,7 @@ const searchBtn = document.getElementById('search-btn')
 const cardContainer = document.getElementById('card-container')
 
 let filmsArray = []
+let watchlistArray = []
 
 
 
@@ -69,7 +70,7 @@ function getFilmHtml(film, index) {
             <div class="card">
                 <img
                     class="card-img"
-                    src="${film.Poster}"
+                    src="${film.Poster === 'N/A' ? `./styles/icon.jpg` : film.Poster }"
                     alt="${film.Title}"
                 />
                 <div class="card-main">
@@ -85,7 +86,7 @@ function getFilmHtml(film, index) {
                     <div class="card-info">
                         <div id="length">${film.Runtime}</div>
                         <div id="genre">${film.Genre}</div>
-                        <button class="watchlist-toggle">
+                        <button class="watchlist-toggle" id="${film.imdbRating}">
                             <i class="fa-solid fa-circle-plus"></i>
                             Watchlist
                         </button>
@@ -93,6 +94,7 @@ function getFilmHtml(film, index) {
                     
                     <p class="plot" id="plot">
                     ${film.Plot}
+                    ${film.Plot.length > 230 ? `<a href='https://www.imdb.com/title/${film.imdbID}' class='read-more' target="_blank">Read more</a>` : ""}
                     </p>
                 </div>
             </div>
