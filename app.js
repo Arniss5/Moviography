@@ -1,24 +1,58 @@
+const searchBar = document.getElementById('search-bar')
+const searchBtn = document.getElementById('search-btn')
 
-let requestedFilmsArray = []
+let filmsArray = []
 
-fetch('http://www.omdbapi.com/?apikey=cec89db4&s=Pulp+Fiction')
-    .then(res => res.json())
-    .then(data => {
-    requestedFilmsArray = data.Search
-    getFilmsHtml(requestedFilmsArray)
+
+searchBtn.addEventListener('click', () => {
+    filmsArray = []
+    searchFilms()
+    console.log(filmsArray)
+})
+
+
+function searchFilms() {
+    renderFilms()
+    searchBar.value = ''
+}
+
+
+function renderFilms() {
+    fetch(`http://www.omdbapi.com/?apikey=cec89db4&s=${searchBar.value}`)
+        .then(res => res.json())
+        .then(data => {
+            //fetch detailed info about each film
+            data.Search.forEach(film => {
+                fetch(`http://www.omdbapi.com/?apikey=cec89db4&t=${film.Title}`)
+                .then(res => res.json())
+                .then(data => {
+                    //fix API bug and exclude repetition films
+                    if (!filmsArray.find(film => film.Plot === data.Plot)) {
+                        filmsArray.push(data)
+                      }
+                    
+                    filmsArray.sort((a, b) => {
+                        return b.imdbRating - a.imdbRating;
+                    })
+
+                    document.getElementById('card-container').innerHTML = getFilmsHtml()
+                })
+            })
     })
+}
+    
+function getFilmsHtml() {
+    let filmsHtml = ``
+    filmsArray.forEach((film, index) => {
+        filmsHtml += getFilmHtml(film, index)
+    })
+    return filmsHtml
+}
 
-
-    function getFilmsHtml(filmsArray) {
-        filmsArray.forEach((film, index) => {
-            getCardHtml(film, index)
-            console.log(film)
-        })
-    }
-
-    function getCardHtml(film, index) {
-        console.log( `
-        <div class="card">
+function getFilmHtml(film, index) {
+      
+    return `
+            <div class="card">
                 <img
                     class="card-img"
                     src="${film.Poster}"
@@ -30,13 +64,13 @@ fetch('http://www.omdbapi.com/?apikey=cec89db4&s=Pulp+Fiction')
                         <div class="title">${film.Title}</div>
                         <div class="text-top">
                             <i class="fa-solid fa-star"></i>
-                            <div class="rating" id="rating">8.1</div>
+                            <div class="rating" id="rating">${film.imdbRating}</div>
                         </div>
                     </div>
                     <!-- main middle -->
                     <div class="card-info">
-                        <div id="length">177 min</div>
-                        <div id="genre">Action, Drama, Sci-fi</div>
+                        <div id="length">${film.Runtime}</div>
+                        <div id="genre">${film.Genre}</div>
                         <button class="watchlist-toggle">
                             <i class="fa-solid fa-circle-plus"></i>
                             Watchlist
@@ -44,15 +78,12 @@ fetch('http://www.omdbapi.com/?apikey=cec89db4&s=Pulp+Fiction')
                     </div>
                     <!-- main bottom -->
                     <p class="plot" id="plot">
-                        A blade runner must pursue and terminate four replicants
-                        who stole a ship in space, and have returned to Earth to
-                        find their creator.
+                    ${film.Plot}
                     </p>
                 </div>
             </div>
-        
-        `)
-    }
+        `
+}
 
 
 
