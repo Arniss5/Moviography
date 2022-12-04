@@ -132,6 +132,18 @@ h1 {
     width: 20%
 }
 
+.add-movies-link {
+    color: #363636;
+    font-size: 1rem;
+    text-decoration: none;
+    display: block;
+    margin-top: 1.5em;
+}
+
+.add-movies-link:hover {
+    color: #005800c2;
+}
+
 
 /* FILMS */
 .card {
@@ -181,7 +193,7 @@ h1 {
 
 .watchlist-toggle:hover > .fa-circle-plus,
 .watchlist-toggle:active > .fa-circle-plus {
-    color: rgba(0, 88, 0, 0.76);
+    color: #005800c2;
 }
 
 .watchlist-toggle:hover,
@@ -199,5 +211,7 @@ h1 {
     font-size: .9rem;
 }
 
+
+/* WATCHLIST */
 
 
