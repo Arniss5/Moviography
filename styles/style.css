@@ -99,11 +99,10 @@ h1 {
 }
 
 .search-btn:hover,
-.search-btn:focus    {
+.search-btn:active    {
     background-color: #D1D5DB;
 }
 
-.search-btn:focus,
 .search-bar:focus {
     outline: none;
 }
@@ -118,6 +117,19 @@ h1 {
 
 .card-container {
     width: 90%;
+}
+
+.cards-placeholder {
+    color: #DFDDDD;
+    font-weight: 700;
+    font-size: 1.5rem;
+    width: 100%;
+    margin: 25% auto;
+    text-align: center;
+}
+
+#cards-placeholder-icon {
+    width: 20%
 }
 
 .card {

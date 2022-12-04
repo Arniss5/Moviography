@@ -26,11 +26,13 @@ function renderFilms() {
                 fetch(`http://www.omdbapi.com/?apikey=cec89db4&t=${film.Title}`)
                 .then(res => res.json())
                 .then(data => {
+                    
                     //fix API bug and exclude repetition films
                     if (!filmsArray.find(film => film.Plot === data.Plot)) {
                         filmsArray.push(data)
                       }
                     
+                    //sort films from highest rating
                     filmsArray.sort((a, b) => {
                         return b.imdbRating - a.imdbRating;
                     })
