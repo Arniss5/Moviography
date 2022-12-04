@@ -1,5 +1,6 @@
 const searchBar = document.getElementById('search-bar')
 const searchBtn = document.getElementById('search-btn')
+const cardContainer = document.getElementById('card-container')
 
 let filmsArray = []
 
@@ -22,24 +23,33 @@ function renderFilms() {
         .then(res => res.json())
         .then(data => {
             //fetch detailed info about each film
-            data.Search.forEach(film => {
-                fetch(`http://www.omdbapi.com/?apikey=cec89db4&t=${film.Title}`)
-                .then(res => res.json())
-                .then(data => {
-                    
-                    //fix API bug and exclude repetition films
-                    if (!filmsArray.find(film => film.Plot === data.Plot)) {
-                        filmsArray.push(data)
-                      }
-                    
-                    //sort films from highest rating
-                    filmsArray.sort((a, b) => {
-                        return b.imdbRating - a.imdbRating;
+            if (data.Search) {
+                data.Search.forEach(film => {
+                    fetch(`http://www.omdbapi.com/?apikey=cec89db4&t=${film.Title}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        
+                        //fix API bug and exclude repetition films
+                        if (!filmsArray.find(film => film.Plot === data.Plot)) {
+                            filmsArray.push(data)
+                          }
+                        
+                        //sort films from highest rating
+                        filmsArray.sort((a, b) => {
+                            return b.imdbRating - a.imdbRating;
+                        })
+    
+                        document.getElementById('card-container').innerHTML = getFilmsHtml()
                     })
-
-                    document.getElementById('card-container').innerHTML = getFilmsHtml()
                 })
-            })
+            } else {
+                cardContainer.innerHTML = `
+                    <p class="cards-placeholder">
+                        Unable to find what you’re looking for. Please try another search.
+                    </p>
+                `
+            }
+            
     })
 }
     
@@ -61,7 +71,7 @@ function getFilmHtml(film, index) {
                     alt="${film.Title}"
                 />
                 <div class="card-main">
-                    <!-- main top -->
+                    
                     <div class="text-top">
                         <div class="title">${film.Title}</div>
                         <div class="text-top">
@@ -69,7 +79,7 @@ function getFilmHtml(film, index) {
                             <div class="rating" id="rating">${film.imdbRating}</div>
                         </div>
                     </div>
-                    <!-- main middle -->
+                    
                     <div class="card-info">
                         <div id="length">${film.Runtime}</div>
                         <div id="genre">${film.Genre}</div>
@@ -78,7 +88,7 @@ function getFilmHtml(film, index) {
                             Watchlist
                         </button>
                     </div>
-                    <!-- main bottom -->
+                    
                     <p class="plot" id="plot">
                     ${film.Plot}
                     </p>

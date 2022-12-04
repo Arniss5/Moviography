@@ -113,7 +113,7 @@ h1 {
 }
 
 
-/* FILMS */
+/* FILM RENDER AREA */
 
 .card-container {
     width: 90%;
@@ -124,7 +124,7 @@ h1 {
     font-weight: 700;
     font-size: 1.5rem;
     width: 100%;
-    margin: 25% auto;
+    margin: 30% auto;
     text-align: center;
 }
 
@@ -132,6 +132,8 @@ h1 {
     width: 20%
 }
 
+
+/* FILMS */
 .card {
     gap: 1.5em;
     border-bottom: 1.5px solid #E5E7EB;
@@ -140,6 +142,10 @@ h1 {
 
 .card-img {
     width: 100px;
+}
+
+.card-main {
+    width: 100%;
 }
 
 .fa-star {
@@ -162,6 +168,7 @@ h1 {
     font-size: .8rem;
     color: #111827;
     gap: 2em;
+    margin: 1em 0;
 }
 
 .watchlist-toggle {
@@ -185,10 +192,6 @@ h1 {
 .fa-circle-plus {
     font-size: 1.1rem;
     
-}
-
-.card-info {
-    margin: 1em 0;
 }
 
 .plot {
