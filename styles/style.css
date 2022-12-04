@@ -32,6 +32,10 @@ main,
     align-items: center;
 }
 
+.hidden {
+    display: none;
+}
+
 /* HERO */
 
 .hero {
@@ -201,9 +205,15 @@ h1 {
     font-weight: 500;
 }
 
-.fa-circle-plus {
-    font-size: 1.1rem;
-    
+.fa-circle-plus,
+.fa-circle-minus {
+    font-size: 1.1rem;   
+}
+
+.fa-circle-plus,
+.fa-circle-minus,
+.watchlist-text {
+    pointer-events: none;
 }
 
 .plot {

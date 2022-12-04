@@ -1,6 +1,7 @@
 const searchBar = document.getElementById('search-bar')
 const searchBtn = document.getElementById('search-btn')
 const cardContainer = document.getElementById('card-container')
+const watchlistLink = document.getElementById('my-watchlist')
 
 let filmsArray = []
 let watchlistArray = []
@@ -11,7 +12,7 @@ let watchlistArray = []
 searchBtn.addEventListener('click', () => {
     filmsArray = []
     searchFilms()
-    console.log(filmsArray)
+    // console.log(filmsArray)
 })
 
 
@@ -42,7 +43,7 @@ function renderFilms() {
                             return b.imdbRating - a.imdbRating;
                         })
     
-                        document.getElementById('card-container').innerHTML = getFilmsHtml()
+                        document.getElementById('card-container').innerHTML = getFilmsHtml(filmsArray)
                     })
                 })
             } else {
@@ -56,15 +57,15 @@ function renderFilms() {
     })
 }
     
-function getFilmsHtml() {
+function getFilmsHtml(filmsList) {
     let filmsHtml = ``
-    filmsArray.forEach((film, index) => {
-        filmsHtml += getFilmHtml(film, index)
+    filmsList.forEach(film => {
+        filmsHtml += getFilmHtml(film)
     })
     return filmsHtml
 }
 
-function getFilmHtml(film, index) {
+function getFilmHtml(film) {
       
     return `
             <div class="card">
@@ -79,16 +80,20 @@ function getFilmHtml(film, index) {
                         <div class="title">${film.Title}</div>
                         <div class="text-top">
                             <i class="fa-solid fa-star"></i>
-                            <div class="rating" id="rating">${film.imdbRating}</div>
+                            <div class="rating">${film.imdbRating}</div>
                         </div>
                     </div>
                     
                     <div class="card-info">
                         <div id="length">${film.Runtime}</div>
                         <div id="genre">${film.Genre}</div>
-                        <button class="watchlist-toggle" id="${film.imdbRating}">
+                        <button class="watchlist-toggle" id="add${film.imdbID}" data-film="${film.imdbID}">
                             <i class="fa-solid fa-circle-plus"></i>
-                            Watchlist
+                            <p class="watchlist-text"> Watchlist </p>
+                        </button>
+                        <button class="watchlist-toggle hidden" id="remove${film.imdbID}" data-film="${film.imdbID}">
+                            <i class="fa-solid fa-circle-minus"></i>
+                            <p class="watchlist-text"> Remove </p>
                         </button>
                     </div>
                     
@@ -105,3 +110,40 @@ function getFilmHtml(film, index) {
 
 
 // ADDING TO WATCHLIST
+
+
+document.addEventListener('click', event => {
+    handleWatchlist(event)
+})
+
+
+function handleWatchlist(e) {
+    const add = document.getElementById(`add${e.target.dataset.film}`)
+    const remove = document.getElementById(`remove${e.target.dataset.film}`)
+
+    // add/remove films from watchlistArray
+    if(e.target.className == "watchlist-toggle") {
+        if(e.target == add) {
+            watchlistArray.push(filmsArray.filter(film => film.imdbID == e.target.dataset.film)[0])
+            console.log(watchlistArray)
+        } else {
+            const filmToRemove = filmsArray.filter(film => film.imdbID == e.target.dataset.film)[0]
+            watchlistArray.splice(watchlistArray.indexOf(filmToRemove), 1)
+            // console.log(watchlistArray.indexOf(filmToRemove))
+            // console.log(watchlistArray)
+        }
+        
+        add.classList.toggle('hidden')
+        remove.classList.toggle('hidden')
+    }
+}
+
+watchlistLink.addEventListener('click', () => {
+    document.getElementById('watchlist-container').innerHTML = getFilmsHtml(watchlistArray)
+})
+    
+
+
+
+
+// export {watchlistArray}
