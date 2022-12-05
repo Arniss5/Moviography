@@ -6,7 +6,7 @@ export function getFilmHtml(film, add, remove) {
             <div class="card">
                 <img
                     class="card-img"
-                    src="${film.Poster === 'N/A' ? `./styles/icon.jpg` : film.Poster }"
+                    src="${film.Poster === 'N/A' ? `./styles/Icon.jpg` : film.Poster }"
                     alt="${film.Title}"
                 />
                 <div class="card-main">
