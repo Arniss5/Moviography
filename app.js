@@ -37,13 +37,13 @@ function searchFilms() {
 
 
 function renderFilms() {
-    fetch(`http://www.omdbapi.com/?apikey=cec89db4&s=${searchBar.value}`)
+    fetch(`https://www.omdbapi.com/?apikey=cec89db4&s=${searchBar.value}`)
         .then(res => res.json())
         .then(data => {
             //fetch detailed info about each film
             if (data.Search) {
                 data.Search.forEach(film => {
-                    fetch(`http://www.omdbapi.com/?apikey=cec89db4&t=${film.Title}`)
+                    fetch(`https://www.omdbapi.com/?apikey=cec89db4&t=${film.Title}`)
                     .then(res => res.json())
                     .then(data => {
                         
@@ -99,6 +99,7 @@ export function handleWatchlist(e) {
         //   }
         const currentFilm = filmsArray.filter(film => film.imdbID == e.target.dataset.film)[0]
 
+        //check if the film's already been added
         const isRepetitive = watchlistArray.find(film => film.imdbID === currentFilm.imdbID)
         console.log(currentFilm.imdbID)
        
