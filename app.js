@@ -94,14 +94,21 @@ export function handleWatchlist(e) {
     // add/remove films from watchlistArray
     if(e.target.className.includes("watchlist-toggle")) {
         
+        // if (!watchlistArray.find(film => film.imdbID === current.imdbID)) {
+        //     filmsArray.push(data)
+        //   }
+        const currentFilm = filmsArray.filter(film => film.imdbID == e.target.dataset.film)[0]
 
-        if(e.target == add) {
-            watchlistArray.push(filmsArray.filter(film => film.imdbID == e.target.dataset.film)[0])
+        const isRepetitive = watchlistArray.find(film => film.imdbID === currentFilm.imdbID)
+        console.log(currentFilm.imdbID)
+       
+
+        if(e.target == add && isRepetitive == undefined) {
+            watchlistArray.push(currentFilm)
             localStorage.setItem("watchlist", JSON.stringify(watchlistArray))
             
-        } else {
-            const filmToRemove = filmsArray.filter(film => film.imdbID == e.target.dataset.film)[0]
-            watchlistArray.splice(watchlistArray.indexOf(filmToRemove), 1)
+        } else if (e.target == remove)  { 
+            watchlistArray.splice(watchlistArray.indexOf(currentFilm), 1)
             localStorage.setItem("watchlist", JSON.stringify(watchlistArray))
             // console.log(watchlistArray.indexOf(filmToRemove))
             
