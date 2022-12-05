@@ -45,6 +45,7 @@ main,
     background-position: 0 25%;
     background-size: cover;
     width: 100%;
+    min-height: 160px;
     height: 25vh;
     max-width: 700px;
     justify-content: space-between;
