@@ -200,6 +200,11 @@ h1 {
     color: #005800c2;
 }
 
+.watchlist-toggle:hover > .fa-circle-minus,
+.watchlist-toggle:active > .fa-circle-minus {
+    color: #971313;
+}
+
 .watchlist-toggle:hover,
 .watchlist-toggle:active {
     font-weight: 500;
@@ -233,6 +238,20 @@ h1 {
 }
 
 
-/* WATCHLIST */
+/* Spinner */
 
 
+.loader {
+    border: 12px solid #f3f3f3; /* Light grey */
+    border-top: 12px solid #FEC654;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 2s linear infinite;
+    margin: 25% auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

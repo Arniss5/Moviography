@@ -1,15 +1,28 @@
+import {getFilmsHtml} from './utils.js'
+
 const searchBar = document.getElementById('search-bar')
 const searchBtn = document.getElementById('search-btn')
 const cardContainer = document.getElementById('card-container')
-const watchlistLink = document.getElementById('my-watchlist')
 
-let filmsArray = []
-let watchlistArray = []
+
+export let filmsArray = []
+
+
+//check storage for watchlist
+let watchlistArray
+if(localStorage.getItem('watchlist') === null) {
+    watchlistArray = []
+} else {
+    watchlistArray = JSON.parse(localStorage.getItem("watchlist"))
+}
+
+
 
 
 
 // SEARCHING FOR FILMS
-searchBtn.addEventListener('click', () => {
+searchBtn.addEventListener('click', e => {
+    e.preventDefault()
     filmsArray = []
     searchFilms()
     // console.log(filmsArray)
@@ -17,6 +30,7 @@ searchBtn.addEventListener('click', () => {
 
 
 function searchFilms() {
+    document.getElementById('card-container').innerHTML = `<div class="loader"></div>` 
     renderFilms()
     searchBar.value = ''
 }
@@ -43,7 +57,7 @@ function renderFilms() {
                             return b.imdbRating - a.imdbRating;
                         })
     
-                        document.getElementById('card-container').innerHTML = getFilmsHtml(filmsArray)
+                        document.getElementById('card-container').innerHTML = getFilmsHtml(filmsArray, "", "hidden")
                     })
                 })
             } else {
@@ -57,54 +71,9 @@ function renderFilms() {
     })
 }
     
-function getFilmsHtml(filmsList) {
-    let filmsHtml = ``
-    filmsList.forEach(film => {
-        filmsHtml += getFilmHtml(film)
-    })
-    return filmsHtml
-}
 
-function getFilmHtml(film) {
-      
-    return `
-            <div class="card">
-                <img
-                    class="card-img"
-                    src="${film.Poster === 'N/A' ? `./styles/icon.jpg` : film.Poster }"
-                    alt="${film.Title}"
-                />
-                <div class="card-main">
-                    
-                    <div class="text-top">
-                        <div class="title">${film.Title}</div>
-                        <div class="text-top">
-                            <i class="fa-solid fa-star"></i>
-                            <div class="rating">${film.imdbRating}</div>
-                        </div>
-                    </div>
-                    
-                    <div class="card-info">
-                        <div id="length">${film.Runtime}</div>
-                        <div id="genre">${film.Genre}</div>
-                        <button class="watchlist-toggle" id="add${film.imdbID}" data-film="${film.imdbID}">
-                            <i class="fa-solid fa-circle-plus"></i>
-                            <p class="watchlist-text"> Watchlist </p>
-                        </button>
-                        <button class="watchlist-toggle hidden" id="remove${film.imdbID}" data-film="${film.imdbID}">
-                            <i class="fa-solid fa-circle-minus"></i>
-                            <p class="watchlist-text"> Remove </p>
-                        </button>
-                    </div>
-                    
-                    <p class="plot" id="plot">
-                    ${film.Plot}
-                    ${film.Plot.length > 230 ? `<a href='https://www.imdb.com/title/${film.imdbID}' class='read-more' target="_blank">Read more</a>` : ""}
-                    </p>
-                </div>
-            </div>
-        `
-}
+
+
 
 
 
@@ -117,33 +86,31 @@ document.addEventListener('click', event => {
 })
 
 
-function handleWatchlist(e) {
+export function handleWatchlist(e) {
     const add = document.getElementById(`add${e.target.dataset.film}`)
     const remove = document.getElementById(`remove${e.target.dataset.film}`)
-
+    
+    
     // add/remove films from watchlistArray
-    if(e.target.className == "watchlist-toggle") {
+    if(e.target.className.includes("watchlist-toggle")) {
+        
+
         if(e.target == add) {
             watchlistArray.push(filmsArray.filter(film => film.imdbID == e.target.dataset.film)[0])
-            console.log(watchlistArray)
+            localStorage.setItem("watchlist", JSON.stringify(watchlistArray))
+            
         } else {
             const filmToRemove = filmsArray.filter(film => film.imdbID == e.target.dataset.film)[0]
             watchlistArray.splice(watchlistArray.indexOf(filmToRemove), 1)
+            localStorage.setItem("watchlist", JSON.stringify(watchlistArray))
             // console.log(watchlistArray.indexOf(filmToRemove))
-            // console.log(watchlistArray)
+            
         }
         
         add.classList.toggle('hidden')
         remove.classList.toggle('hidden')
+        
+
+        
     }
 }
-
-watchlistLink.addEventListener('click', () => {
-    document.getElementById('watchlist-container').innerHTML = getFilmsHtml(watchlistArray)
-})
-    
-
-
-
-
-// export {watchlistArray}
