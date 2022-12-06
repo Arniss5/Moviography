@@ -255,11 +255,10 @@ h1 {
 }
 
 
-/* Spinner */
-
+/* SPINNER */
 
 .loader {
-    border: 12px solid #f3f3f3; /* Light grey */
+    border: 12px solid #f3f3f3;
     border-top: 12px solid #FEC654;
     border-radius: 50%;
     width: 80px;

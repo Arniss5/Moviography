@@ -18,14 +18,12 @@ if(localStorage.getItem('watchlist') === null) {
 
 
 
-
-
 // SEARCHING FOR FILMS
+
 searchBtn.addEventListener('click', e => {
     e.preventDefault()
     filmsArray = []
     searchFilms()
-    // console.log(filmsArray)
 })
 
 
@@ -66,20 +64,14 @@ function renderFilms() {
                         Unable to find what you’re looking for. Please try another search.
                     </p>
                 `
-            }
-            
+            }    
     })
 }
     
 
 
 
-
-
-
-
 // ADDING TO WATCHLIST
-
 
 document.addEventListener('click', event => {
     handleWatchlist(event)
@@ -94,15 +86,10 @@ export function handleWatchlist(e) {
     // add/remove films from watchlistArray
     if(e.target.className.includes("watchlist-toggle")) {
         
-        // if (!watchlistArray.find(film => film.imdbID === current.imdbID)) {
-        //     filmsArray.push(data)
-        //   }
         const currentFilm = filmsArray.filter(film => film.imdbID == e.target.dataset.film)[0]
 
         //check if the film's already been added
         const isRepetitive = watchlistArray.find(film => film.imdbID === currentFilm.imdbID)
-        console.log(currentFilm.imdbID)
-       
 
         if(e.target == add && isRepetitive == undefined) {
             watchlistArray.push(currentFilm)
@@ -111,14 +98,11 @@ export function handleWatchlist(e) {
         } else if (e.target == remove)  { 
             watchlistArray.splice(watchlistArray.indexOf(currentFilm), 1)
             localStorage.setItem("watchlist", JSON.stringify(watchlistArray))
-            // console.log(watchlistArray.indexOf(filmToRemove))
             
         }
         
         add.classList.toggle('hidden')
         remove.classList.toggle('hidden')
-        
-
-        
+  
     }
 }

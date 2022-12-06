@@ -5,6 +5,17 @@ let watchlist = JSON.parse(localStorage.getItem("watchlist"))
 
 renderWatchlist()
 
+
+document.addEventListener("click", e => {
+    if (e.target.className.includes("watchlist-toggle")) {
+        const filmToRemove = watchlist.filter(film => film.imdbID == e.target.dataset.film)[0]
+        watchlist.splice(watchlist.indexOf(filmToRemove), 1)
+        localStorage.setItem("watchlist", JSON.stringify(watchlist))
+        renderWatchlist()
+    }
+})
+
+
 function renderWatchlist() {
     if(watchlist && watchlist.length > 0) {
         document.getElementById('watchlist-container').innerHTML = getFilmsHtml(watchlist, "hidden", "")
@@ -23,12 +34,3 @@ function renderWatchlist() {
 }
 
 
-document.addEventListener("click", e => {
-    if (e.target.className.includes("watchlist-toggle")) {
-        const filmToRemove = watchlist.filter(film => film.imdbID == e.target.dataset.film)[0]
-        watchlist.splice(watchlist.indexOf(filmToRemove), 1)
-        localStorage.setItem("watchlist", JSON.stringify(watchlist))
-        renderWatchlist()
-    }
-})
-// const remove = document.getElementById(`remove${e.target.dataset.film}`)
