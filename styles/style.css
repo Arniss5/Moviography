@@ -40,7 +40,7 @@ main,
 
 .hero {
     color: #fff;
-    background-image: url("./image\ 36.png");
+    background-image: url("./images/hero.png");
     background-color: rgba(0, 0, 0, 0.5);
     background-position: 0 25%;
     background-size: cover;
