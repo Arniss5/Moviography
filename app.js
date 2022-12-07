@@ -66,7 +66,14 @@ function renderFilms() {
                 `
             }    
     })
-}
+        .catch(() => {
+            cardContainer.innerHTML = `
+                        <p class="cards-placeholder">
+                            Unable to connect with database. Try again later!
+                        </p>
+                    `
+        })
+    }
     
 
 
