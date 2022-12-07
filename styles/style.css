@@ -107,6 +107,7 @@ h1 {
     border-right: 1px solid #D1D5DB;
     width: 70%;
     height: 100%;
+    padding-left: .2em;
 }
 
 .search-btn {
