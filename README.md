@@ -1,4 +1,4 @@
-# Quizzical
+# Moviography
 
 The app allows user to search for films and add them to watchlist.
 
